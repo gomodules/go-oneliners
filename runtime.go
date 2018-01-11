@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"encoding/json"
 	"strings"
+	"reflect"
 )
 
 func FILE(a ...interface{}) {
@@ -26,13 +27,19 @@ func PrettyJson(a interface{},msg ...string) {
 	if ok {
 		fmt.Println("__FILE__", file, "__LINE__", ln)
 		if a!=nil {
-			data,_:=json.MarshalIndent(a,"","   ")
-			if len(msg) >0 {
-				str:= strings.Trim(fmt.Sprintf("%v",msg), "[]")
-				fmt.Println("=====================[",str,"]=====================")
-			} else {
-				fmt.Println("===============================================================")
+			if reflect.TypeOf(a).String() == "[]uint8" {
+				var js interface{}
+				if err := json.Unmarshal(a.([]byte), &js); err == nil {
+					a = js
+				}
 			}
+			data,_:=json.MarshalIndent(a,"","   ")
+			str:=""
+			if len(msg) >0 {
+				str = strings.Trim(fmt.Sprintf("%v",msg), "[]")
+				str = fmt.Sprintf("[ %s ]",str)
+			}
+			fmt.Printf("============================%s============================\n",str)
 			fmt.Println(string(data))
 		}
 	} else {
