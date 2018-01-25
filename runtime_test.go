@@ -3,7 +3,6 @@ package oneliners
 import (
 	"testing"
 	"encoding/json"
-	"fmt"
 )
 
 func TestDumpJson(t *testing.T) {
