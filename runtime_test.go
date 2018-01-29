@@ -2,6 +2,7 @@ package oneliners
 
 import (
 	"testing"
+	"encoding/json"
 )
 
 func TestDumpJson(t *testing.T) {
@@ -15,5 +16,9 @@ func TestDumpJson(t *testing.T) {
 	}
 	PrettyJson(str,"Asad")
 	PrettyJson(str,"Asad","jacob")
-	PrettyJson(str)
+
+	// Pretty Print Marshalled Object
+	if jsn,err:=json.Marshal(str);err==nil{
+		PrettyJson(jsn,"Marshalled JSON")
+	}
 }
