@@ -27,6 +27,7 @@ func PrettyJson(a interface{},msg ...string) {
 	if ok {
 		fmt.Println("__FILE__", file, "__LINE__", ln)
 		if a!=nil {
+			// ref: https://stackoverflow.com/questions/37770005/why-is-there-no-byte-kind-in-the-reflect-package
 			if reflect.TypeOf(a).String() == "[]uint8" {
 				var js interface{}
 				if err := json.Unmarshal(a.([]byte), &js); err == nil {
