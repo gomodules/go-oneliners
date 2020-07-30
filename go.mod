@@ -1,1 +1,3 @@
-module github.com/tamalsaha/go-oneliners
+module gomodules.xyz/oneliners
+
+go 1.14
